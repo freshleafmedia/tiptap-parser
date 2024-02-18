@@ -1,0 +1,12 @@
+{
+    "name": "freshleafmedia/tiptap-parser",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "FreshleafMedia\\TipTapParser\\": "src/"
+        }
+    },
+    "require": {
+        "illuminate/collections": ">10"
+    }
+}
