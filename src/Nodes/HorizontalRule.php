@@ -19,9 +19,9 @@ readonly class HorizontalRule implements Node
         return '<hr>';
     }
 
-    public static function fromArray(array $array): self
+    public static function fromArray(array $array): static
     {
-        return new self(
+        return new static(
             $array['marks'],
         );
     }

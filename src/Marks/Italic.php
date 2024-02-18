@@ -18,8 +18,8 @@ readonly class Italic implements Mark
         return '</em>';
     }
 
-    public static function fromArray(array $array): self
+    public static function fromArray(array $array): static
     {
-        return new self();
+        return new static();
     }
 }

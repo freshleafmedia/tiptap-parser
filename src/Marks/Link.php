@@ -30,9 +30,9 @@ readonly class Link implements Mark
         return '</a>';
     }
 
-    public static function fromArray(array $array): self
+    public static function fromArray(array $array): static
     {
-        return new self(
+        return new static(
             href: $array['attrs']['href'],
             target: $array['attrs']['target'],
         );

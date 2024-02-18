@@ -8,5 +8,5 @@ interface Node
 {
     public function render(): string;
 
-    public static function fromArray(array $array): self;
+    public static function fromArray(array $array): static;
 }

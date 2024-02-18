@@ -18,8 +18,8 @@ readonly class Underline implements Mark
         return '</span>';
     }
 
-    public static function fromArray(array $array): self
+    public static function fromArray(array $array): static
     {
-        return new self();
+        return new static();
     }
 }

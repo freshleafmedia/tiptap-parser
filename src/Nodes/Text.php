@@ -20,9 +20,9 @@ readonly class Text implements Node
         return $this->text;
     }
 
-    public static function fromArray(array $array): self
+    public static function fromArray(array $array): static
     {
-        return new self(
+        return new static(
             $array['text'],
             $array['marks'],
         );

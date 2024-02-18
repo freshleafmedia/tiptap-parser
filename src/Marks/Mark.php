@@ -12,5 +12,5 @@ interface Mark
 
     public function renderClose(): string;
 
-    public static function fromArray(array $array): self;
+    public static function fromArray(array $array): static;
 }

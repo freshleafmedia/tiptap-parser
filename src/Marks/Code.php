@@ -18,8 +18,8 @@ readonly class Code implements Mark
         return '</code>';
     }
 
-    public static function fromArray(array $array): self
+    public static function fromArray(array $array): static
     {
-        return new self();
+        return new static();
     }
 }

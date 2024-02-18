@@ -27,9 +27,9 @@ readonly class Heading implements Node
         HTML;
     }
 
-    public static function fromArray(array $array): self
+    public static function fromArray(array $array): static
     {
-        return new self(
+        return new static(
             $array['attrs']['level'],
             $array['content'],
             $array['marks'],

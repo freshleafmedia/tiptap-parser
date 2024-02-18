@@ -83,14 +83,14 @@ readonly class Parser
         ]);
     }
 
-    public function registerNode(string $type, string $fqcn): self
+    public function registerNode(string $type, string $fqcn): static
     {
-        return new self($this->tipTapArray, $this->nodeFqcnIndex->put($type, $fqcn), $this->markFqcnIndex);
+        return new static($this->tipTapArray, $this->nodeFqcnIndex->put($type, $fqcn), $this->markFqcnIndex);
     }
 
-    public function registerMark(string $type, string $fqcn): self
+    public function registerMark(string $type, string $fqcn): static
     {
-        return new self($this->tipTapArray, $this->nodeFqcnIndex, $this->markFqcnIndex->put($type, $fqcn));
+        return new static($this->tipTapArray, $this->nodeFqcnIndex, $this->markFqcnIndex->put($type, $fqcn));
     }
 
     protected function createTree(array $tipTapArray): Collection
@@ -138,9 +138,9 @@ readonly class Parser
             ->implode('');
     }
 
-    public static function fromArray($tipTapArray): self
+    public static function fromArray($tipTapArray): static
     {
-        return new self($tipTapArray);
+        return new static($tipTapArray);
     }
 
     public function lookupNode(string $nodeName): string
