@@ -21,6 +21,7 @@ $tipTapArray = [
 ];
 
 $html = \FreshleafMedia\TipTapParser\Parser::fromArray($tipTapArray)->toHtml();
+$html = \FreshleafMedia\TipTapParser\TiptapContent::fromArray($tipTapArray)->toHtml();
 ```
 
 

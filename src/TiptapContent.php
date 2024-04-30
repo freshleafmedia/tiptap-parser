@@ -37,13 +37,13 @@ use FreshleafMedia\TipTapParser\Nodes\TaskList;
 use FreshleafMedia\TipTapParser\Nodes\Text;
 use Illuminate\Support\Collection;
 
-readonly class Parser
+readonly class TiptapContent
 {
     public Collection $nodeFqcnIndex;
     public Collection $markFqcnIndex;
 
     public function __construct(
-        public array $tipTapArray,
+        public array $content,
         ?Collection $nodeFqcnIndex = null,
         ?Collection $markFqcnIndex = null,
     )
@@ -85,12 +85,12 @@ readonly class Parser
 
     public function registerNode(string $type, string $fqcn): static
     {
-        return new static($this->tipTapArray, $this->nodeFqcnIndex->put($type, $fqcn), $this->markFqcnIndex);
+        return new static($this->content, $this->nodeFqcnIndex->put($type, $fqcn), $this->markFqcnIndex);
     }
 
     public function registerMark(string $type, string $fqcn): static
     {
-        return new static($this->tipTapArray, $this->nodeFqcnIndex, $this->markFqcnIndex->put($type, $fqcn));
+        return new static($this->content, $this->nodeFqcnIndex, $this->markFqcnIndex->put($type, $fqcn));
     }
 
     protected function createTree(array $tipTapArray): Collection
@@ -133,7 +133,7 @@ readonly class Parser
     public function toHtml(): string
     {
         return $this
-            ->createTree($this->tipTapArray)
+            ->createTree($this->content)
             ->map(fn (Node $node): string => $node->render())
             ->implode('');
     }
