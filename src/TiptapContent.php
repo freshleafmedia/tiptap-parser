@@ -83,14 +83,18 @@ readonly class TiptapContent
         ]);
     }
 
-    public function registerNode(string $type, string $fqcn): static
+    public function registerNode(string $type, string $fqcn): self
     {
-        return new static($this->content, $this->nodeFqcnIndex->put($type, $fqcn), $this->markFqcnIndex);
+        $this->nodeFqcnIndex->put($type, $fqcn);
+
+        return $this;
     }
 
     public function registerMark(string $type, string $fqcn): static
     {
-        return new static($this->content, $this->nodeFqcnIndex, $this->markFqcnIndex->put($type, $fqcn));
+        $this->markFqcnIndex->put($type, $fqcn);
+
+        return $this;
     }
 
     protected function createTree(array $tipTapArray): Collection
