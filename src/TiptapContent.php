@@ -142,8 +142,12 @@ readonly class TiptapContent
             ->implode('');
     }
 
-    public static function fromArray($tipTapArray): static
+    public static function fromArray($tipTapArray): self
     {
+        if (array_is_list($tipTapArray) === false) {
+            $tipTapArray = [$tipTapArray];
+        }
+
         return new static($tipTapArray);
     }
 
