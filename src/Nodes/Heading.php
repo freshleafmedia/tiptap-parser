@@ -23,7 +23,7 @@ readonly class Heading implements Node
         return <<<HTML
             <h{$this->level}>
                 {$this->getInnerHtml()}
-            </h>
+            </h{$this->level}>
         HTML;
     }
 
