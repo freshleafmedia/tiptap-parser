@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FreshleafMedia\TipTapParser\Marks;
+namespace FreshleafMedia\TiptapParser\Marks;
 
 readonly class Code implements Mark
 {

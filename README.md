@@ -1,6 +1,6 @@
-# TipTap JSON Parser
+# Tiptap JSON Parser
 
-Convert TipTap JSON to HTML.
+Convert Tiptap JSON to HTML.
 
 ```php
 $tipTapArray = [
@@ -13,15 +13,15 @@ $tipTapArray = [
                 [
                     'type' => 'text',
                     'text' => 'Hello world',
-                    'marls' => [],
+                    'marks' => [],
                 ],
             ],
         ],
     ],
 ];
 
-$html = \FreshleafMedia\TipTapParser\Parser::fromArray($tipTapArray)->toHtml();
-$html = \FreshleafMedia\TipTapParser\TiptapContent::fromArray($tipTapArray)->toHtml();
+$html = \FreshleafMedia\TiptapParser\TiptapContent::fromArray($tipTapArray)->toHtml();
+// <p>Hello world</p>
 ```
 
 
@@ -30,7 +30,7 @@ $html = \FreshleafMedia\TipTapParser\TiptapContent::fromArray($tipTapArray)->toH
 Create a custom Node class:
 
 ```php
-readonly class CustomParagraph extends \FreshleafMedia\TipTapParser\Nodes\Paragraph
+readonly class CustomParagraph extends \FreshleafMedia\TiptapParser\Nodes\Paragraph
 {
     public function render(): string
     {
@@ -60,15 +60,15 @@ $html = Parser::fromArray($tipTapArray)
 
 # Accessing Custom Attributes
 
-Each Node/Mark is instantiated from the TipTap array via the `fromArray` method. This allows access you to access all 
+Each Node/Mark is instantiated from the Tiptap array via the `fromArray` method. This allows access you to access all 
 context when creating Nodes/Marks.
 
 The array typically takes this form:
 
 ```php
 use Illuminate\Support\Collection;
-use FreshleafMedia\TipTapParser\Nodes\Node;
-use FreshleafMedia\TipTapParser\Marks\Mark;
+use FreshleafMedia\TiptapParser\Nodes\Node;
+use FreshleafMedia\TiptapParser\Marks\Mark;
 
 [
     'type' => 'paragraph',
@@ -82,7 +82,7 @@ use FreshleafMedia\TipTapParser\Marks\Mark;
 ]
 ```
 
-For example if TipTap exposed a `lang` attribute on the paragraph Node you could make use of it like this:
+For example if Tiptap exposed a `lang` attribute on the paragraph Node you could make use of it like this:
 
 ```php
 readonly class CustomParagraph implements Node

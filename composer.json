@@ -3,7 +3,7 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "FreshleafMedia\\TipTapParser\\": "src/"
+            "FreshleafMedia\\TiptapParser\\": "src/"
         }
     },
     "require": {

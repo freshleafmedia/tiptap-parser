@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace FreshleafMedia\TipTapParser\Nodes;
+namespace FreshleafMedia\TiptapParser\Nodes;
 
-use FreshleafMedia\TipTapParser\Marks\Mark;
+use FreshleafMedia\TiptapParser\Marks\Mark;
 
 trait RecursiveInnerHtml
 {

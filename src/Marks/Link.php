@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace FreshleafMedia\TipTapParser\Marks;
+namespace FreshleafMedia\TiptapParser\Marks;
 
-use FreshleafMedia\TipTapParser\Sanitiser;
+use FreshleafMedia\TiptapParser\Sanitiser;
 
 readonly class Link implements Mark
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FreshleafMedia\TipTapParser\Nodes;
+namespace FreshleafMedia\TiptapParser\Nodes;
 
 use Illuminate\Support\Collection;
 
