@@ -13,6 +13,7 @@ trait InnerTextRendering
         return Collection::make($this->children)
             ->map(static fn (Node $node): ?string => $node->toText())
             ->filter()
+            ->map(fn (string $text): string => trim($text))
             ->implode(' ');
     }
 }
