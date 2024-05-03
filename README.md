@@ -100,13 +100,13 @@ use FreshleafMedia\TiptapParser\TiptapContent;
 
 $tiptapArray = [
     'type' => 'paragraph',
-    'marks' => [
-        ['type' => 'bold'],
-    ],
     'content' => [
         [
             'type' => 'text',
             'text' => 'Hello world',
+            'marks' => [
+                ['type' => 'bold'],
+            ],
         ],
     ],
 ];
