@@ -1,33 +1,30 @@
 # Tiptap JSON Parser
 
-Convert Tiptap JSON to HTML.
+Convert JSON from a Tiptap editor to HTML.
 
 ```php
+use FreshleafMedia\TiptapParser\TiptapContent;
+
 $tiptapArray = [
     'type' => 'doc',
     'content' => [
         [
             'type' => 'paragraph',
-            'attrs' => [],
             'content' => [
                 [
                     'type' => 'text',
                     'text' => 'Hello world',
-                    'marks' => [],
                 ],
             ],
         ],
     ],
 ];
 
-$html = \FreshleafMedia\TiptapParser\TiptapContent::fromArray($tiptapArray)->toHtml();
-// <p>Hello world</p>
+TiptapContent::fromArray($tiptapArray)->toHtml(); // <p>Hello world</p>
 ```
 
 
-# Customising or Creating New Nodes/Marks
-
-Create a custom Node class:
+# Creating Custom Nodes
 
 ```php
 readonly class CustomParagraph extends \FreshleafMedia\TiptapParser\Nodes\Paragraph
@@ -36,62 +33,43 @@ readonly class CustomParagraph extends \FreshleafMedia\TiptapParser\Nodes\Paragr
     {
         return <<<HTML
             <p class="paragraph">
-                {$this->getInnerHtml()}
+                {$this->renderInnerHtml()}
             </p>
-        HTML;
+            HTML;
     }
 }
-```
 
-```php
 $html = Parser::fromArray($tiptapArray)
     ->registerNode('paragraph', CustomParagraph::class)
-    ->toHtml();
-```
-
-Marks work in the same way:
-
-```php
-$html = Parser::fromArray($tiptapArray)
-    ->registerMark('link', CustomLink::class)
     ->toHtml();
 ```
 
 
 # Accessing Custom Attributes
 
-Each Node/Mark is instantiated from the Tiptap array via the `fromArray` method. This allows access you to access all 
-context when creating Nodes/Marks.
+Nodes are instantiated via the `fromArray` method, the method is passed all the data from the original array.
 
-The array typically takes this form:
+For example given this array:
 
 ```php
-use Illuminate\Support\Collection;
-use FreshleafMedia\TiptapParser\Nodes\Node;
-
 [
     'type' => 'paragraph',
     'attrs' => [
-        'class' => 'pull-left',
-        'style' => null,
-        ...
-    ],
-    'content' => Collection<Node>,
-    'marks' => Collection<Mark>
+        'lang' => 'en',
+    ]
 ]
 ```
 
-For example if Tiptap exposed a `lang` attribute on the paragraph Node you could make use of it like this:
+We can easily add the `lang` attribute to the `p` element like this:
 
 ```php
-readonly class CustomParagraph implements Node
-{
-    use RecursiveInnerHtml;
+use FreshleafMedia\TiptapParser\Nodes\Paragraph;
 
+readonly class LocalisedParagraph extends Paragraph
+{
     public function __construct(
         public string $language,
-        public array $content,
-        public array $marks = [],
+        public array $children = [],
     )
     {
     }
@@ -100,7 +78,7 @@ readonly class CustomParagraph implements Node
     {
         return <<<HTML
             <p lang="{$this->language}">
-                {$this->getInnerHtml()}
+                {$this->renderInnerHtml()}
             </p>
         HTML;
     }
@@ -109,9 +87,34 @@ readonly class CustomParagraph implements Node
     {
         return new self(
             $array['attrs']['lang'] ?? 'en',
-            $array['content'],
-            $array['marks'],
+            $array['children'] ?? [],
         );
     }
 }
+```
+
+
+# Text Content
+
+Plain text can be created available via the `toText` method. This is useful for things like populating a search index.
+
+```php
+use FreshleafMedia\TiptapParser\TiptapContent;
+
+$tiptapArray = [
+    'type' => 'doc',
+    'content' => [
+        [
+            'type' => 'paragraph',
+            'content' => [
+                [
+                    'type' => 'text',
+                    'text' => 'Hello world',
+                ],
+            ],
+        ],
+    ],
+];
+
+TiptapContent::fromArray($tiptapArray)->toText(); // Hello world
 ```
