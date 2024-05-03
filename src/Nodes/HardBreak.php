@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 readonly class HardBreak implements Node
 {
     public function __construct(
-        public Collection $marks = new Collection(),
+        public array $marks = [],
     )
     {
     }

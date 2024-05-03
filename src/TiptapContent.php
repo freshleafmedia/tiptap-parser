@@ -110,6 +110,7 @@ readonly class TiptapContent
 
             $content = $this->createTree($node['content'] ?? []);
 
+            /** @var Collection<string, Mark> $marks */
             $marks = Collection::make($node['marks'] ?? [])
                 ->map(function (array $markData): Mark {
                     if ($this->markFqcnIndex->has($markData['type']) === false) {
@@ -124,8 +125,8 @@ readonly class TiptapContent
 
             $nodeInstance = $nodeFqcn::fromArray([
                 ...$node,
-                'content' => $content,
-                'marks' => $marks,
+                'content' => $content->toArray(),
+                'marks' => $marks->toArray(),
             ]);
 
             $populatedTree->push($nodeInstance);

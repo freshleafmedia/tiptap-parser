@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FreshleafMedia\TiptapParser\Nodes;
 
 use FreshleafMedia\TiptapParser\Marks\Mark;
+use Illuminate\Support\Collection;
 
 trait RecursiveInnerHtml
 {
@@ -13,19 +14,23 @@ trait RecursiveInnerHtml
         /** @var Node|null $previousChildNode */
         $previousChildNode = null;
 
-        $lastKey = $this->content->keys()->last();
+        $content = Collection::make($this->content);
 
-        return $this
-            ->content
+        $lastKey = $content->keys()->last();
+
+        return $content
             ->map(function (Node $childNode, $key) use ($lastKey, &$previousChildNode): string {
-                $removedKeys = $previousChildNode?->marks->diffKeys($childNode->marks);
-                $addedKeys = $childNode->marks->diffKeys($previousChildNode?->marks);
+                $childMarks = Collection::make($childNode->marks);
+                $previousChildMarks = Collection::make($previousChildNode?->marks);
+
+                $removedKeys = $previousChildMarks->diffKeys($childMarks);
+                $addedKeys = $childMarks->diffKeys($previousChildMarks);
 
                 $isFirstNode = $key === 0;
                 $isLastNode = $key === $lastKey;
 
                 if ($isFirstNode) {
-                    $addedKeys = $addedKeys->merge($childNode->marks);
+                    $addedKeys = $addedKeys->merge($childMarks);
                 }
 
                 $html = '';
@@ -34,7 +39,7 @@ trait RecursiveInnerHtml
                 $html .= $childNode->render();
 
                 if ($isLastNode) {
-                    $html .= $childNode->marks->map(fn (Mark $mark) => $mark->renderClose())->implode('');
+                    $html .= $childMarks->map(fn (Mark $mark) => $mark->renderClose())->implode('');
                 }
 
                 $previousChildNode = $childNode;

@@ -11,8 +11,8 @@ readonly class TableHeader implements Node
     use RecursiveInnerHtml;
 
     public function __construct(
-        public Collection $content,
-        public Collection $marks = new Collection(),
+        public array $content = [],
+        public array $marks = [],
     )
     {
     }

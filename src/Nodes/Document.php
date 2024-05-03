@@ -11,7 +11,7 @@ readonly class Document implements Node
     use RecursiveInnerHtml;
 
     public function __construct(
-        public Collection $content,
+        public array $content = [],
     )
     {
     }

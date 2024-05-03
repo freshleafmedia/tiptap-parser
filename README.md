@@ -91,8 +91,8 @@ readonly class CustomParagraph implements Node
 
     public function __construct(
         public string $language,
-        public Collection $content,
-        public Collection $marks = new Collection(),
+        public array $content,
+        public array $marks = [],
     )
     {
     }
