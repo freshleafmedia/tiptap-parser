@@ -135,7 +135,7 @@ readonly class TiptapContent
     {
         return $this
             ->createTree($this->content)
-            ->map(fn (Node $node): string => $node->toText())
+            ->map(fn (Node $node): ?string => $node->toText())
             ->implode(' ');
     }
 
