@@ -7,6 +7,7 @@ namespace FreshleafMedia\TiptapParser\Nodes;
 readonly class Code implements Node
 {
     use InnerHtmlRendering;
+    use InnerTextRendering;
 
     public function __construct(
         /** @var array<Node> */
@@ -15,7 +16,7 @@ readonly class Code implements Node
     {
     }
 
-    public function render(): string
+    public function toHtml(): string
     {
         return <<<HTML
             <code>

@@ -6,7 +6,9 @@ namespace FreshleafMedia\TiptapParser\Nodes;
 
 interface Node
 {
-    public function render(): string;
+    public function toHtml(): string;
+
+    public function toText(): ?string;
 
     public static function fromArray(array $array): static;
 }

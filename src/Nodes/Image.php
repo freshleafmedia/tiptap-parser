@@ -17,13 +17,18 @@ readonly class Image implements Node
     {
     }
 
-    public function render(): string
+    public function toHtml(): string
     {
         $alt = $this->alt ?? '';
 
         return <<<HTML
             <img src="{$this->src}" alt="{$alt}" width="{$this->width}" height="{$this->height}" />
         HTML;
+    }
+
+    public function toText(): ?string
+    {
+        return $this->alt;
     }
 
     public static function fromArray(array $array): static

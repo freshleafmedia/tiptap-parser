@@ -11,7 +11,7 @@ trait InnerHtmlRendering
     protected function renderInnerHtml(): string
     {
         return Collection::make($this->children)
-            ->map(static fn (Node $node): string => $node->render())
+            ->map(static fn (Node $node): string => $node->toHtml())
             ->implode('');
     }
 }

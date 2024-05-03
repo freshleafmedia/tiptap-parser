@@ -9,6 +9,7 @@ use FreshleafMedia\TiptapParser\Sanitiser;
 readonly class Link implements Node
 {
     use InnerHtmlRendering;
+    use InnerTextRendering;
 
     public function __construct(
         public string $href,
@@ -19,7 +20,7 @@ readonly class Link implements Node
     {
     }
 
-    public function render(): string
+    public function toHtml(): string
     {
         $href = Sanitiser::escape($this->href);
         $target = Sanitiser::escape($this->target);

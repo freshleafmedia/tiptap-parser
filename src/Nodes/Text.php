@@ -14,7 +14,12 @@ readonly class Text implements Node
     {
     }
 
-    public function render(): string
+    public function toHtml(): string
+    {
+        return $this->text;
+    }
+
+    public function toText(): string
     {
         return $this->text;
     }

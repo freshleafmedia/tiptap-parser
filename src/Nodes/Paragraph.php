@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 readonly class Paragraph implements Node
 {
     use InnerHtmlRendering;
+    use InnerTextRendering;
 
     public function __construct(
         /** @var array<Node> */
@@ -17,7 +18,7 @@ readonly class Paragraph implements Node
     {
     }
 
-    public function render(): string
+    public function toHtml(): string
     {
         return <<<HTML
             <p>

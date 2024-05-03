@@ -7,6 +7,7 @@ namespace FreshleafMedia\TiptapParser\Nodes;
 readonly class Highlight implements Node
 {
     use InnerHtmlRendering;
+    use InnerTextRendering;
 
     public function __construct(
         /** @var array<Node> */
@@ -15,7 +16,7 @@ readonly class Highlight implements Node
     {
     }
 
-    public function render(): string
+    public function toHtml(): string
     {
         return <<<HTML
             <mark>{$this->renderInnerHtml()}</mark>

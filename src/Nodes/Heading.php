@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 readonly class Heading implements Node
 {
     use InnerHtmlRendering;
+    use InnerTextRendering;
 
     public function __construct(
         public int $level,
@@ -18,7 +19,7 @@ readonly class Heading implements Node
     {
     }
 
-    public function render(): string
+    public function toHtml(): string
     {
         return <<<HTML
             <h{$this->level}>

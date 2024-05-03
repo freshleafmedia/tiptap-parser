@@ -127,8 +127,16 @@ readonly class TiptapContent
     {
         return $this
             ->createTree($this->content)
-            ->map(fn (Node $node): string => $node->render())
+            ->map(fn (Node $node): string => $node->toHtml())
             ->implode('');
+    }
+
+    public function toText(): string
+    {
+        return $this
+            ->createTree($this->content)
+            ->map(fn (Node $node): string => $node->toText())
+            ->implode(' ');
     }
 
     public static function fromArray($tipTapArray): self

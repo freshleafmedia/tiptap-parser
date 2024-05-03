@@ -9,9 +9,14 @@ use Illuminate\Support\Collection;
 readonly class HardBreak implements Node
 {
 
-    public function render(): string
+    public function toHtml(): string
     {
         return '<br>';
+    }
+
+    public function toText(): null
+    {
+        return null;
     }
 
     public static function fromArray(array $array): static
