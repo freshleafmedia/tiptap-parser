@@ -147,9 +147,4 @@ readonly class TiptapContent
 
         return new static($tiptapArray);
     }
-
-    public function lookupNode(string $nodeName): string
-    {
-        return $this->nodeFqcnIndex[$nodeName];
-    }
 }
