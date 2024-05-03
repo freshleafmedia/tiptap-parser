@@ -1,6 +1,7 @@
 {
     "name": "freshleafmedia/tiptap-parser",
     "type": "library",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "FreshleafMedia\\TiptapParser\\": "src/"
