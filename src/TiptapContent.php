@@ -83,11 +83,11 @@ readonly class TiptapContent
         return $this;
     }
 
-    protected function createTree(array $tipTapArray): Collection
+    protected function createTree(array $tiptapArray): Collection
     {
         $populatedTree = new Collection();
 
-        foreach ($tipTapArray as $nodeData) {
+        foreach ($tiptapArray as $nodeData) {
             if ($this->nodeFqcnIndex->has($nodeData['type']) === false) {
                 throw new \Exception('Unknown node "' . $nodeData['type'] . '". Try calling registerNode("' . $nodeData['type'] . '", MyNode::class)');
             }
@@ -139,13 +139,13 @@ readonly class TiptapContent
             ->implode(' ');
     }
 
-    public static function fromArray($tipTapArray): self
+    public static function fromArray($tiptapArray): self
     {
-        if (array_is_list($tipTapArray) === false) {
-            $tipTapArray = [$tipTapArray];
+        if (array_is_list($tiptapArray) === false) {
+            $tiptapArray = [$tiptapArray];
         }
 
-        return new static($tipTapArray);
+        return new static($tiptapArray);
     }
 
     public function lookupNode(string $nodeName): string

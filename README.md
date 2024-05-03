@@ -3,7 +3,7 @@
 Convert Tiptap JSON to HTML.
 
 ```php
-$tipTapArray = [
+$tiptapArray = [
     'type' => 'doc',
     'content' => [
         [
@@ -20,7 +20,7 @@ $tipTapArray = [
     ],
 ];
 
-$html = \FreshleafMedia\TiptapParser\TiptapContent::fromArray($tipTapArray)->toHtml();
+$html = \FreshleafMedia\TiptapParser\TiptapContent::fromArray($tiptapArray)->toHtml();
 // <p>Hello world</p>
 ```
 
@@ -44,7 +44,7 @@ readonly class CustomParagraph extends \FreshleafMedia\TiptapParser\Nodes\Paragr
 ```
 
 ```php
-$html = Parser::fromArray($tipTapArray)
+$html = Parser::fromArray($tiptapArray)
     ->registerNode('paragraph', CustomParagraph::class)
     ->toHtml();
 ```
@@ -52,7 +52,7 @@ $html = Parser::fromArray($tipTapArray)
 Marks work in the same way:
 
 ```php
-$html = Parser::fromArray($tipTapArray)
+$html = Parser::fromArray($tiptapArray)
     ->registerMark('link', CustomLink::class)
     ->toHtml();
 ```
