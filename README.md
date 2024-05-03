@@ -7,8 +7,7 @@
 ---
 
 This package simply converts the JSON output from the [Tiptap editor](https://github.com/awcodes/filament-tiptap-editor) to HTML.
-
-This package is different from [others](https://github.com/ueberdosis/tiptap-php) because customising the rendered HTML is simple and intuitive
+It differs from [other packages](https://github.com/ueberdosis/tiptap-php) by allowing you to easily customise and extend the HTML output.
 
 ---
 
