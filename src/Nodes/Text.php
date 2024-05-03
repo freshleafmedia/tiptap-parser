@@ -10,7 +10,7 @@ readonly class Text implements Node
 {
     public function __construct(
         public string $text,
-        public Collection $marks,
+        public Collection $marks = new Collection(),
     )
     {
     }

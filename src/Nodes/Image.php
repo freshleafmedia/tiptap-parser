@@ -13,7 +13,7 @@ readonly class Image implements Node
         public ?string $alt,
         public int $width,
         public int $height,
-        public Collection $marks,
+        public Collection $marks = new Collection(),
     )
     {
     }

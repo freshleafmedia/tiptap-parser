@@ -12,7 +12,7 @@ readonly class TableCell implements Node
 
     public function __construct(
         public Collection $content,
-        public Collection $marks,
+        public Collection $marks = new Collection(),
     )
     {
     }

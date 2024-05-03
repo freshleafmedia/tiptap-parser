@@ -13,7 +13,7 @@ readonly class Heading implements Node
     public function __construct(
         public int $level,
         public Collection $content,
-        public Collection $marks,
+        public Collection $marks = new Collection(),
     )
     {
     }
