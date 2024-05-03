@@ -12,6 +12,12 @@ This package is different from [others](https://github.com/ueberdosis/tiptap-php
 
 ---
 
+## Installation
+
+```
+composer require freshleafmedia/tiptap-parser
+```
+
 ## Basic Usage
 
 ```php
