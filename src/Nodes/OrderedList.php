@@ -8,11 +8,11 @@ use Illuminate\Support\Collection;
 
 readonly class OrderedList implements Node
 {
-    use RecursiveInnerHtml;
+    use InnerHtmlRendering;
 
     public function __construct(
-        public array $content = [],
-        public array $marks = [],
+        /** @var array<Node> */
+        public array $children = [],
     )
     {
     }
@@ -21,7 +21,7 @@ readonly class OrderedList implements Node
     {
         return <<<HTML
             <ol>
-                {$this->getInnerHtml()}
+                {$this->renderInnerHtml()}
             </ol>
         HTML;
     }
@@ -29,8 +29,7 @@ readonly class OrderedList implements Node
     public static function fromArray(array $array): static
     {
         return new static(
-            $array['content'],
-            $array['marks'],
+            $array['children'] ?? [],
         );
     }
 }

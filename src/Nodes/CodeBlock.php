@@ -8,11 +8,11 @@ use Illuminate\Support\Collection;
 
 readonly class CodeBlock implements Node
 {
-    use RecursiveInnerHtml;
+    use InnerHtmlRendering;
 
     public function __construct(
-        public array $content = [],
-        public array $marks = [],
+        /** @var array<Node> */
+        public array $children = [],
     )
     {
     }
@@ -21,16 +21,15 @@ readonly class CodeBlock implements Node
     {
         return <<<HTML
             <pre>
-                <code>{$this->getInnerHtml()}</code>
+                <code>{$this->renderInnerHtml()}</code>
             </pre>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static
     {
         return new static(
-            $array['content'],
-            $array['marks'],
+            $array['children'] ?? [],
         );
     }
 }

@@ -4,30 +4,27 @@ declare(strict_types=1);
 
 namespace FreshleafMedia\TiptapParser;
 
-use FreshleafMedia\TiptapParser\Marks\Bold;
-use FreshleafMedia\TiptapParser\Marks\Code;
-use FreshleafMedia\TiptapParser\Marks\Highlight;
-use FreshleafMedia\TiptapParser\Marks\Italic;
-use FreshleafMedia\TiptapParser\Marks\Lead;
-use FreshleafMedia\TiptapParser\Marks\Link;
-use FreshleafMedia\TiptapParser\Marks\Mark;
-use FreshleafMedia\TiptapParser\Marks\Small;
-use FreshleafMedia\TiptapParser\Marks\Strike;
-use FreshleafMedia\TiptapParser\Marks\Subscript;
-use FreshleafMedia\TiptapParser\Marks\Superscript;
-use FreshleafMedia\TiptapParser\Marks\Underline;
 use FreshleafMedia\TiptapParser\Nodes\BlockQuote;
+use FreshleafMedia\TiptapParser\Nodes\Bold;
 use FreshleafMedia\TiptapParser\Nodes\BulletList;
+use FreshleafMedia\TiptapParser\Nodes\Code;
 use FreshleafMedia\TiptapParser\Nodes\CodeBlock;
 use FreshleafMedia\TiptapParser\Nodes\Document;
 use FreshleafMedia\TiptapParser\Nodes\HardBreak;
 use FreshleafMedia\TiptapParser\Nodes\Heading;
+use FreshleafMedia\TiptapParser\Nodes\Highlight;
 use FreshleafMedia\TiptapParser\Nodes\HorizontalRule;
 use FreshleafMedia\TiptapParser\Nodes\Image;
+use FreshleafMedia\TiptapParser\Nodes\Italic;
+use FreshleafMedia\TiptapParser\Nodes\Link;
 use FreshleafMedia\TiptapParser\Nodes\ListItem;
 use FreshleafMedia\TiptapParser\Nodes\Node;
 use FreshleafMedia\TiptapParser\Nodes\OrderedList;
 use FreshleafMedia\TiptapParser\Nodes\Paragraph;
+use FreshleafMedia\TiptapParser\Nodes\Small;
+use FreshleafMedia\TiptapParser\Nodes\Strike;
+use FreshleafMedia\TiptapParser\Nodes\Subscript;
+use FreshleafMedia\TiptapParser\Nodes\Superscript;
 use FreshleafMedia\TiptapParser\Nodes\Table;
 use FreshleafMedia\TiptapParser\Nodes\TableCell;
 use FreshleafMedia\TiptapParser\Nodes\TableHeader;
@@ -35,17 +32,16 @@ use FreshleafMedia\TiptapParser\Nodes\TableRow;
 use FreshleafMedia\TiptapParser\Nodes\TaskItem;
 use FreshleafMedia\TiptapParser\Nodes\TaskList;
 use FreshleafMedia\TiptapParser\Nodes\Text;
+use FreshleafMedia\TiptapParser\Nodes\Underline;
 use Illuminate\Support\Collection;
 
 readonly class TiptapContent
 {
     public Collection $nodeFqcnIndex;
-    public Collection $markFqcnIndex;
 
     public function __construct(
         public array $content,
         ?Collection $nodeFqcnIndex = null,
-        ?Collection $markFqcnIndex = null,
     )
     {
         $this->nodeFqcnIndex = $nodeFqcnIndex ?? Collection::make([
@@ -67,9 +63,6 @@ readonly class TiptapContent
             'taskItem' => TaskItem::class,
             'taskList' => TaskList::class,
             'text' => Text::class,
-        ]);
-
-        $this->markFqcnIndex = $markFqcnIndex ?? Collection::make([
             'bold' => Bold::class,
             'code' => Code::class,
             'highlight' => Highlight::class,
@@ -90,46 +83,41 @@ readonly class TiptapContent
         return $this;
     }
 
-    public function registerMark(string $type, string $fqcn): static
-    {
-        $this->markFqcnIndex->put($type, $fqcn);
-
-        return $this;
-    }
-
     protected function createTree(array $tipTapArray): Collection
     {
         $populatedTree = new Collection();
 
-        foreach ($tipTapArray as $node) {
-            if ($this->nodeFqcnIndex->has($node['type']) === false) {
-                throw new \Exception('Unknown node "' . $node['type'] . '". Try calling registerNode("' . $node['type'] . '", MyNode::class)');
+        foreach ($tipTapArray as $nodeData) {
+            if ($this->nodeFqcnIndex->has($nodeData['type']) === false) {
+                throw new \Exception('Unknown node "' . $nodeData['type'] . '". Try calling registerNode("' . $nodeData['type'] . '", MyNode::class)');
             }
 
-            $nodeFqcn = $this->nodeFqcnIndex->get($node['type']);
+            $nodeFqcn = $this->nodeFqcnIndex->get($nodeData['type']);
 
-            $content = $this->createTree($node['content'] ?? []);
+            if (array_key_exists('content', $nodeData)) {
+                $nodeData['children'] = $this->createTree($nodeData['content'] ?? [])->toArray();
+            }
 
-            /** @var Collection<string, Mark> $marks */
-            $marks = Collection::make($node['marks'] ?? [])
-                ->map(function (array $markData): Mark {
-                    if ($this->markFqcnIndex->has($markData['type']) === false) {
-                        throw new \Exception('Unknown mark "' . $markData['type'] . '". Try calling registerMark("' . $markData['type'] . '", MyMark::class)');
-                    }
-
-                    $markFqcn = $this->markFqcnIndex->get($markData['type']);
-
-                    return $markFqcn::fromArray($markData);
-                })
-                ->keyBy(fn (Mark $mark): string => $mark->getHash());
-
-            $nodeInstance = $nodeFqcn::fromArray([
-                ...$node,
-                'content' => $content->toArray(),
-                'marks' => $marks->toArray(),
+            $node = $nodeFqcn::fromArray([
+                ...$nodeData,
             ]);
 
-            $populatedTree->push($nodeInstance);
+            if (array_key_exists('marks', $nodeData)) {
+                $node = Collection::make($nodeData['marks'])
+                    ->reduce(
+                        function (Node $child, array $markData) {
+                            $nodeFqcn = $this->nodeFqcnIndex->get($markData['type']);
+
+                            return $nodeFqcn::fromArray([
+                                ...$markData,
+                                'children' => [$child],
+                            ]);
+                        },
+                        $node,
+                    );
+            }
+
+            $populatedTree->push($node);
         }
 
         return $populatedTree;

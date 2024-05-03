@@ -10,7 +10,6 @@ readonly class Text implements Node
 {
     public function __construct(
         public string $text,
-        public array $marks = [],
     )
     {
     }
@@ -24,7 +23,6 @@ readonly class Text implements Node
     {
         return new static(
             $array['text'],
-            $array['marks'],
         );
     }
 }

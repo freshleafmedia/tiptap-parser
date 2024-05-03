@@ -8,23 +8,24 @@ use Illuminate\Support\Collection;
 
 readonly class Document implements Node
 {
-    use RecursiveInnerHtml;
+    use InnerHtmlRendering;
 
     public function __construct(
-        public array $content = [],
+        /** @var array<Node> */
+        public array $children = [],
     )
     {
     }
 
     public function render(): string
     {
-        return $this->getInnerHtml();
+        return $this->renderInnerHtml();
     }
 
     public static function fromArray(array $array): static
     {
         return new static(
-            $array['content'],
+            $array['children'] ?? [],
         );
     }
 }

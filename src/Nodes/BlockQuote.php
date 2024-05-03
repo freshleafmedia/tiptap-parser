@@ -8,11 +8,11 @@ use Illuminate\Support\Collection;
 
 readonly class BlockQuote implements Node
 {
-    use RecursiveInnerHtml;
+    use InnerHtmlRendering;
 
     public function __construct(
-        public array $content,
-        public array $marks = [],
+        /** @var array<Node> */
+        public array $children = [],
     )
     {
     }
@@ -21,16 +21,15 @@ readonly class BlockQuote implements Node
     {
         return <<<HTML
             <blockquote>
-                {$this->getInnerHtml()}
+                {$this->renderInnerHtml()}
             </blockquote>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static
     {
         return new static(
-            $array['content'],
-            $array['marks'],
+            $array['children'] ?? [],
         );
     }
 }

@@ -8,11 +8,11 @@ use Illuminate\Support\Collection;
 
 readonly class Paragraph implements Node
 {
-    use RecursiveInnerHtml;
+    use InnerHtmlRendering;
 
     public function __construct(
-        public array $content = [],
-        public array $marks = [],
+        /** @var array<Node> */
+        public array $children = [],
     )
     {
     }
@@ -21,7 +21,7 @@ readonly class Paragraph implements Node
     {
         return <<<HTML
             <p>
-                {$this->getInnerHtml()}
+                {$this->renderInnerHtml()}
             </p>
         HTML;
     }
@@ -29,8 +29,7 @@ readonly class Paragraph implements Node
     public static function fromArray(array $array): static
     {
         return new static(
-            $array['content'],
-            $array['marks'],
+            $array['children'] ?? [],
         );
     }
 }

@@ -68,7 +68,6 @@ The array typically takes this form:
 ```php
 use Illuminate\Support\Collection;
 use FreshleafMedia\TiptapParser\Nodes\Node;
-use FreshleafMedia\TiptapParser\Marks\Mark;
 
 [
     'type' => 'paragraph',

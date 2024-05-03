@@ -8,11 +8,11 @@ use Illuminate\Support\Collection;
 
 readonly class Table implements Node
 {
-    use RecursiveInnerHtml;
+    use InnerHtmlRendering;
 
     public function __construct(
-        public array $content = [],
-        public array $marks = [],
+        /** @var array<Node> */
+        public array $children = [],
     )
     {
     }
@@ -21,7 +21,7 @@ readonly class Table implements Node
     {
         return <<<HTML
             <table>
-                {$this->getInnerHtml()}
+                {$this->renderInnerHtml()}
             </table>
         HTML;
     }
@@ -29,8 +29,7 @@ readonly class Table implements Node
     public static function fromArray(array $array): static
     {
         return new static(
-            $array['content'],
-            $array['marks'],
+            $array['children'] ?? [],
         );
     }
 }

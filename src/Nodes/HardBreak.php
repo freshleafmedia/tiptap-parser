@@ -8,11 +8,6 @@ use Illuminate\Support\Collection;
 
 readonly class HardBreak implements Node
 {
-    public function __construct(
-        public array $marks = [],
-    )
-    {
-    }
 
     public function render(): string
     {
@@ -21,8 +16,6 @@ readonly class HardBreak implements Node
 
     public static function fromArray(array $array): static
     {
-        return new static(
-            $array['marks'],
-        );
+        return new static();
     }
 }

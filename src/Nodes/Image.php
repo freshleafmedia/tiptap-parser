@@ -13,7 +13,6 @@ readonly class Image implements Node
         public ?string $alt,
         public int $width,
         public int $height,
-        public array $marks = [],
     )
     {
     }
@@ -34,7 +33,6 @@ readonly class Image implements Node
             $array['attrs']['alt'],
             $array['attrs']['width'],
             $array['attrs']['height'],
-            $array['marks'],
         );
     }
 }

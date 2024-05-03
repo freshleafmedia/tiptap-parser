@@ -8,12 +8,12 @@ use Illuminate\Support\Collection;
 
 readonly class Heading implements Node
 {
-    use RecursiveInnerHtml;
+    use InnerHtmlRendering;
 
     public function __construct(
         public int $level,
-        public array $content = [],
-        public array $marks = [],
+        /** @var array<Node> */
+        public array $children = [],
     )
     {
     }
@@ -22,17 +22,16 @@ readonly class Heading implements Node
     {
         return <<<HTML
             <h{$this->level}>
-                {$this->getInnerHtml()}
+                {$this->renderInnerHtml()}
             </h{$this->level}>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static
     {
         return new static(
             $array['attrs']['level'],
-            $array['content'],
-            $array['marks'],
+            $array['children'],
         );
     }
 }

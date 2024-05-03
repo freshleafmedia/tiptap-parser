@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace FreshleafMedia\TiptapParser\Nodes;
 
-use Illuminate\Support\Collection;
-
-readonly class TableRow implements Node
+readonly class Italic implements Node
 {
     use InnerHtmlRendering;
 
@@ -20,10 +18,10 @@ readonly class TableRow implements Node
     public function render(): string
     {
         return <<<HTML
-            <tr>
+            <em>
                 {$this->renderInnerHtml()}
-            </tr>
-        HTML;
+            </em>
+            HTML;
     }
 
     public static function fromArray(array $array): static
