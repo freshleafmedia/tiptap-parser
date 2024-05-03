@@ -6,16 +6,11 @@ Convert JSON from a Tiptap editor to HTML.
 use FreshleafMedia\TiptapParser\TiptapContent;
 
 $tiptapArray = [
-    'type' => 'doc',
+    'type' => 'paragraph',
     'content' => [
         [
-            'type' => 'paragraph',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Hello world',
-                ],
-            ],
+            'type' => 'text',
+            'text' => 'Hello world',
         ],
     ],
 ];
@@ -27,7 +22,9 @@ TiptapContent::fromArray($tiptapArray)->toHtml(); // <p>Hello world</p>
 # Creating Custom Nodes
 
 ```php
-readonly class CustomParagraph extends \FreshleafMedia\TiptapParser\Nodes\Paragraph
+use FreshleafMedia\TiptapParser\Nodes\Paragraph;
+
+readonly class CustomParagraph extends Paragraph
 {
     public function render(): string
     {
@@ -41,7 +38,7 @@ readonly class CustomParagraph extends \FreshleafMedia\TiptapParser\Nodes\Paragr
 
 $html = Parser::fromArray($tiptapArray)
     ->registerNode('paragraph', CustomParagraph::class)
-    ->toHtml();
+    ->toHtml(); // <p class="paragraph">Hello world</p>
 ```
 
 
@@ -96,25 +93,24 @@ readonly class LocalisedParagraph extends Paragraph
 
 # Text Content
 
-Plain text can be created available via the `toText` method. This is useful for things like populating a search index.
+Plain text can be extracted available via the `toText` method. This is useful for things like populating a search index.
 
 ```php
 use FreshleafMedia\TiptapParser\TiptapContent;
 
 $tiptapArray = [
-    'type' => 'doc',
+    'type' => 'paragraph',
+    'marks' => [
+        ['type' => 'bold'],
+    ],
     'content' => [
         [
-            'type' => 'paragraph',
-            'content' => [
-                [
-                    'type' => 'text',
-                    'text' => 'Hello world',
-                ],
-            ],
+            'type' => 'text',
+            'text' => 'Hello world',
         ],
     ],
 ];
 
+TiptapContent::fromArray($tiptapArray)->toHtml(); // <p><strong>Hello world</strong></p>
 TiptapContent::fromArray($tiptapArray)->toText(); // Hello world
 ```
