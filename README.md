@@ -77,7 +77,7 @@ readonly class LocalisedParagraph extends Paragraph
             <p lang="{$this->language}">
                 {$this->renderInnerHtml()}
             </p>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): self
