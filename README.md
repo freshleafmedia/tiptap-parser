@@ -1,6 +1,18 @@
 # Tiptap JSON Parser
 
-Convert JSON from a Tiptap editor to HTML.
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/freshleafmedia/tiptap-parser.svg?style=flat-square)](https://packagist.org/packages/freshleafmedia/tiptap-parser)
+[![Total Downloads](https://img.shields.io/packagist/dt/freshleafmedia/tiptap-parser.svg?style=flat-square)](https://packagist.org/packages/freshleafmedia/tiptap-parser)
+[![License](https://img.shields.io/packagist/l/freshleafmedia/tiptap-parser?style=flat-square)](https://packagist.org/packages/freshleafmedia/tiptap-parser)
+
+---
+
+This package simply converts the JSON output from the [Tiptap editor](https://github.com/awcodes/filament-tiptap-editor) to HTML.
+
+This package is different from [others](https://github.com/ueberdosis/tiptap-php) because customising the rendered HTML is simple and intuitive
+
+---
+
+## Basic Usage
 
 ```php
 use FreshleafMedia\TiptapParser\TiptapContent;
@@ -19,7 +31,7 @@ TiptapContent::fromArray($tiptapArray)->toHtml(); // <p>Hello world</p>
 ```
 
 
-# Creating Custom Nodes
+## Customising A Node
 
 ```php
 use FreshleafMedia\TiptapParser\Nodes\Paragraph;
@@ -42,7 +54,7 @@ $html = Parser::fromArray($tiptapArray)
 ```
 
 
-# Accessing Custom Attributes
+## Accessing Custom Attributes
 
 Nodes are instantiated via the `fromArray` method, the method is passed all the data from the original array.
 
@@ -91,7 +103,7 @@ readonly class LocalisedParagraph extends Paragraph
 ```
 
 
-# Text Content
+## Plain Text
 
 Plain text can be extracted available via the `toText` method. This is useful for things like populating a search index.
 
