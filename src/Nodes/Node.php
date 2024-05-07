@@ -10,5 +10,5 @@ interface Node
 
     public function toText(): ?string;
 
-    public static function fromArray(array $array): static;
+    public static function fromArray(array $array): self;
 }

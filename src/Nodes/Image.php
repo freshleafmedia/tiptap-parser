@@ -31,9 +31,9 @@ readonly class Image implements Node
         return $this->alt;
     }
 
-    public static function fromArray(array $array): static
+    public static function fromArray(array $array): self
     {
-        return new static(
+        return new self(
             $array['attrs']['src'],
             $array['attrs']['alt'],
             $array['attrs']['width'],

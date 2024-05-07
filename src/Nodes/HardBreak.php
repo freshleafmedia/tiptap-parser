@@ -19,8 +19,8 @@ readonly class HardBreak implements Node
         return null;
     }
 
-    public static function fromArray(array $array): static
+    public static function fromArray(array $array): self
     {
-        return new static();
+        return new self();
     }
 }

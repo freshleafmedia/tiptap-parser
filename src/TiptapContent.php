@@ -145,6 +145,6 @@ readonly class TiptapContent
             $tiptapArray = [$tiptapArray];
         }
 
-        return new static($tiptapArray);
+        return new self($tiptapArray);
     }
 }

@@ -23,9 +23,9 @@ readonly class Document implements Node
         return $this->renderInnerHtml();
     }
 
-    public static function fromArray(array $array): static
+    public static function fromArray(array $array): self
     {
-        return new static(
+        return new self(
             $array['children'] ?? [],
         );
     }

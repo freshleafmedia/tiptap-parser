@@ -27,9 +27,9 @@ readonly class Paragraph implements Node
             HTML;
     }
 
-    public static function fromArray(array $array): static
+    public static function fromArray(array $array): self
     {
-        return new static(
+        return new self(
             $array['children'] ?? [],
         );
     }

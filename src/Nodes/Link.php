@@ -35,9 +35,9 @@ readonly class Link implements Node
             HTML;
     }
 
-    public static function fromArray(array $array): static
+    public static function fromArray(array $array): self
     {
-        return new static(
+        return new self(
             href: $array['attrs']['href'],
             target: $array['attrs']['target'],
             children: $array['children'],
