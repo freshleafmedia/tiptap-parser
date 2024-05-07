@@ -139,7 +139,7 @@ readonly class TiptapContent
             ->implode(' ');
     }
 
-    public static function fromArray($tiptapArray): self
+    public static function fromArray(array $tiptapArray): self
     {
         if (array_is_list($tiptapArray) === false) {
             $tiptapArray = [$tiptapArray];
