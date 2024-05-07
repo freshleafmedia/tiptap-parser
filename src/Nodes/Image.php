@@ -23,7 +23,7 @@ readonly class Image implements Node
 
         return <<<HTML
             <img src="{$this->src}" alt="{$alt}" width="{$this->width}" height="{$this->height}" />
-        HTML;
+            HTML;
     }
 
     public function toText(): ?string

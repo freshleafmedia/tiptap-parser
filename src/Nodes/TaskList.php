@@ -24,7 +24,7 @@ readonly class TaskList implements Node
             <ul>
                 {$this->renderInnerHtml()}
             </ul>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

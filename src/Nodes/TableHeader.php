@@ -24,7 +24,7 @@ readonly class TableHeader implements Node
             <th>
                 {$this->renderInnerHtml()}
             </th>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

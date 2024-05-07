@@ -22,7 +22,7 @@ readonly class Strike implements Node
             <span style="text-decoration: line-through;">
                 {$this->renderInnerHtml()}
             </span>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

@@ -24,7 +24,7 @@ readonly class Table implements Node
             <table>
                 {$this->renderInnerHtml()}
             </table>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

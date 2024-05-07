@@ -24,7 +24,7 @@ readonly class OrderedList implements Node
             <ol>
                 {$this->renderInnerHtml()}
             </ol>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

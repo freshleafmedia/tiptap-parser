@@ -22,7 +22,7 @@ readonly class Subscript implements Node
             <sub>
                 {$this->renderInnerHtml()}
             </sub>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

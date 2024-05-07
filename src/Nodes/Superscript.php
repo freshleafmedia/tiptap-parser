@@ -22,7 +22,7 @@ readonly class Superscript implements Node
             <sup>
                 {$this->renderInnerHtml()}
             </p>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

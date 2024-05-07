@@ -24,7 +24,7 @@ readonly class TaskItem implements Node
             <li>
                 {$this->renderInnerHtml()}
             </li>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

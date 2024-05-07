@@ -22,7 +22,7 @@ readonly class Bold implements Node
             <strong>
                 {$this->renderInnerHtml()}
             </strong>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

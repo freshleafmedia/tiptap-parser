@@ -22,7 +22,7 @@ readonly class Small implements Node
             <small>
                 {$this->renderInnerHtml()}
             </small>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

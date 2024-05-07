@@ -24,7 +24,7 @@ readonly class TableRow implements Node
             <tr>
                 {$this->renderInnerHtml()}
             </tr>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

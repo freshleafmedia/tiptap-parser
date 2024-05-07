@@ -24,7 +24,7 @@ readonly class Paragraph implements Node
             <p>
                 {$this->renderInnerHtml()}
             </p>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

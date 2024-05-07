@@ -22,7 +22,7 @@ readonly class Underline implements Node
             <span style="text-decoration: underline">
                 {$this->renderInnerHtml()}
             </span>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static

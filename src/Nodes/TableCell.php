@@ -24,7 +24,7 @@ readonly class TableCell implements Node
             <td>
                 {$this->renderInnerHtml()}
             </td>
-        HTML;
+            HTML;
     }
 
     public static function fromArray(array $array): static
