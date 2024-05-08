@@ -32,7 +32,7 @@ $tiptapArray = [
     ],
 ];
 
-TiptapContent::fromArray($tiptapArray)->toHtml(); // <p>Hello world</p>
+TiptapContent::make($tiptapArray)->toHtml(); // <p>Hello world</p>
 ```
 
 
@@ -128,6 +128,6 @@ $tiptapArray = [
     ],
 ];
 
-TiptapContent::fromArray($tiptapArray)->toHtml(); // <p><strong>Hello world</strong></p>
-TiptapContent::fromArray($tiptapArray)->toText(); // Hello world
+TiptapContent::make($tiptapArray)->toHtml(); // <p><strong>Hello world</strong></p>
+TiptapContent::make($tiptapArray)->toText(); // Hello world
 ```

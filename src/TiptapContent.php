@@ -143,8 +143,8 @@ readonly class TiptapContent
             ->implode(' ');
     }
 
-    public static function fromArray(array $tiptapArray): self
+    public static function make(array $content): self
     {
-        return new static($tiptapArray);
+        return new static($content);
     }
 }
