@@ -85,6 +85,10 @@ readonly class TiptapContent
 
     protected function createTree(array $tiptapArray): Collection
     {
+        if (array_is_list($tiptapArray) === false) {
+            $tiptapArray = [$tiptapArray];
+        }
+
         $populatedTree = new Collection();
 
         foreach ($tiptapArray as $nodeData) {
@@ -141,10 +145,6 @@ readonly class TiptapContent
 
     public static function fromArray(array $tiptapArray): self
     {
-        if (array_is_list($tiptapArray) === false) {
-            $tiptapArray = [$tiptapArray];
-        }
-
-        return new self($tiptapArray);
+        return new static($tiptapArray);
     }
 }
