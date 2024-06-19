@@ -21,7 +21,7 @@ readonly class Superscript implements Node
         return <<<HTML
             <sup>
                 {$this->renderInnerHtml()}
-            </p>
+            </sup>
             HTML;
     }
 
